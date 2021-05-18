@@ -8,7 +8,7 @@ export class Foo {
   }
 
   trigger() {
-    this.toastrService.success('Hover over me after my disparition', undefined, {timeOut: 10000});
+    this.toastrService.success('Hover over me after my disparition', undefined, {progressBar: true});
   }
 }
 
