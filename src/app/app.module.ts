@@ -1,4 +1,4 @@
-import { NgModule, NgModuleFactoryLoader, SystemJsNgModuleLoader } from '@angular/core';
+import {APP_INITIALIZER, NgModule, NgModuleFactoryLoader, SystemJsNgModuleLoader} from '@angular/core';
 import { UpgradeModule } from '@angular/upgrade/static';
 import { BrowserModule } from '@angular/platform-browser';
 
@@ -7,6 +7,9 @@ import { UIRouterModule } from '@uirouter/angular';
 import { sampleAppModuleAngularJS } from './app.angularjs.module';
 
 import { PrefsModule } from './prefs/prefs.module';
+import {ToastrModule} from 'ngx-toastr';
+import {Foo} from './foo';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 // Create a "future state" (a placeholder) for the Contacts
 // Angular module which will be lazy loaded by UI-Router
@@ -36,6 +39,8 @@ export function getContactsService($injector) {
     UIRouterModule.forChild({ states: [contactsFutureState] }),
     // The preferences feature module
     PrefsModule,
+    ToastrModule.forRoot(),
+    BrowserAnimationsModule
   ],
   providers: [
     // Provide the SystemJsNgModuleLoader when using Angular lazy loading
@@ -43,7 +48,7 @@ export function getContactsService($injector) {
 
     // Register some AngularJS services as Angular providers
     { provide: 'DialogService', deps: ['$injector'], useFactory: getDialogService },
-    { provide: 'Contacts', deps: ['$injector'], useFactory: getContactsService },
+    { provide: 'Contacts', deps: ['$injector'], useFactory: getContactsService }
   ]
 })
 export class AppModule {

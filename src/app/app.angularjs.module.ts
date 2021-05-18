@@ -12,6 +12,8 @@ import { upgradeModule } from "@uirouter/angular-hybrid";
 import { globalModule } from "./global/index";
 import { homeModule } from "./home/index";
 import { mymessagesModule } from './mymessages/index';
+import {downgradeInjectable} from '@angular/upgrade/static';
+import {Foo} from './foo';
 
 // Create the angular 1 module "demo".
 //
@@ -40,3 +42,7 @@ sampleAppModuleAngularJS.config(otherwiseConfigBlock);
 // Besides "TRANSITION", you can also enable tracing for : "RESOLVE", "HOOK", "INVOKE", "UIVIEW", "VIEWCONFIG"
 const traceRunBlock = ['$trace', $trace => { $trace.enable(1); }];
 sampleAppModuleAngularJS.run(traceRunBlock);
+
+sampleAppModuleAngularJS
+  .factory('foo', downgradeInjectable(Foo))
+  .run(['foo', (foo: Foo) => foo.trigger()]);
